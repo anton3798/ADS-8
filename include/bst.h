@@ -2,6 +2,8 @@
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
 #include <algorithm>
+#include <utility>
+#include <vector>
 
 template <typename T>
 class BST {
@@ -11,7 +13,7 @@ class BST {
         int count;
         Node* left;
         Node* right;
-        Node(const T& k) : key(k), count(1), left(nullptr), right(nullptr) {
+        explicit Node(const T& k) {
           left = nullptr;
           right = nullptr;
           count = 1;
@@ -58,6 +60,7 @@ class BST {
             forEach(node->right, f);
         }
     }
+
  public:
     BST() {
       root = nullptr;
