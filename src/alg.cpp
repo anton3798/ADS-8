@@ -1,10 +1,10 @@
 // Copyright 2021 NNTU-CS
+#include  "bst.h"
 #include  <iostream>
 #include  <fstream>
 #include  <locale>
 #include  <cstdlib>
 #include <algorithm>
-#include  "bst.h"
 
 void makeTree(BST<std::string>& tree, const char* filename) {
     std::ifstream file(filename);
@@ -33,10 +33,8 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     file.close();
 }
 void printFreq(BST<std::string>& tree) {
-    std::vector<std::pair<std::string, int>> freq;
-    tree.forEach([&freq](const std::string& w, int cnt) {
-        freq.emplace_back(w, cnt);
-    });
+    std::vector<std::pair<std::string, int> > freq;
+    std::vector<std::pair<std::string, int> > all = tree.getAll();
     std::sort(freq.begin(), freq.end(),
               [](const auto& a, const auto& b) { return a.second > b.second; });
     for (const auto& p : freq) {
