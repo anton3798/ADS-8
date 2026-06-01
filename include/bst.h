@@ -3,9 +3,9 @@
 #define INCLUDE_BST_H_
 
 #include <algorithm>
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
 template <typename T>
 class BST {
@@ -54,8 +54,7 @@ class BST {
           return 0;
         return 1 + std::max(depth(node->left), depth(node->right));
     }
-    template<typename Func>
-void collect(Node* node, std::vector<std::pair<T, int>>& result) const {
+    void collect(Node* node, std::vector<std::pair<T, int>>& result) const {
     if (!node) return;
     collect(node->left, result);
     result.push_back(std::make_pair(node->key, node->count));
@@ -77,7 +76,9 @@ void collect(Node* node, std::vector<std::pair<T, int>>& result) const {
     bool search(const T& key) const {
       return search(root, key);
     }
-    int depth() const { return depth(root); }
+    int depth() const {
+    return depth(root);
+    }
     std::vector<std::pair<T, int>> getAll() const {
     std::vector<std::pair<T, int>> result;
     collect(root, result);
