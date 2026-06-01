@@ -1,7 +1,9 @@
 // Copyright 2021 NNTU-CS
 #include  "bst.h"
-#include  <iostream>
+
+#include <algorithm>
 #include  <fstream>
+#include  <iostream>
 #include <string>
 #include <vector>
 #include  <cstdlib>
@@ -33,8 +35,8 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     }
     file.close();
 }
-void printFreq(BST<std::string>& tree) {
-    std::vector<std::pair<std::string, int> > all = tree.getAll();
+    void printFreq(BST<std::string>& tree) {
+    std::vector<std::pair<std::string, int> > freq = tree.getAll();
     std::sort(freq.begin(), freq.end(),
               [](const auto& a, const auto& b) { return a.second > b.second; });
     for (const auto& p : freq) {
