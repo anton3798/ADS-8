@@ -15,12 +15,7 @@ class BST {
         int count;
         Node* left;
         Node* right;
-        explicit Node(const T& k) {
-          left = nullptr;
-          right = nullptr;
-          count = 1;
-          key = k;
-        }
+        explicit Node(const T& k) : key(k), count(1), left(nullptr), right(nullptr) {}
     };
     Node* root;
     void destroyTree(Node* node) {
@@ -49,11 +44,12 @@ class BST {
         if (key > node->key) return search(node->right, key);
         return true;
     }
-    int depth(Node* node) const {
-        if (!node)
-          return 0;
-        return 1 + std::max(depth(node->left), depth(node->right));
-    }
+    int depthNode(Node* node) const {
+        if (!node) return 0;
+        int leftDepth = depthNode(node->left);
+        int rightDepth = depthNode(node->right);
+        return 1 + std::max(leftDepth, rightDepth);
+}
     void collect(Node* node, std::vector<std::pair<T, int>>& result) const {
     if (!node) return;
     collect(node->left, result);
