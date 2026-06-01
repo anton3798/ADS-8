@@ -1,6 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include  <iostream>
 #include  <fstream>
+#include <cctype>
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -14,13 +15,10 @@ void makeTree(BST<std::string>& tree, const char* filename) {
         return;
     }
     std::string word;
-    while (!file.eof()) {
-        int ch = file.get();
-        if (ch == EOF) break;
-        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
-            if (ch >= 'A' && ch <= 'Z')
-                ch += ('a' - 'A');
-            word.push_back(static_cast<char>(ch));
+    int ch;
+    while ((ch = file.get()) != EOF) {
+        if (std::isalpha(ch)) {
+            word.push_back(static_cast<char>(std::tolower(ch)));
         } else {
             if (!word.empty()) {
                 tree.insert(word);
@@ -36,17 +34,18 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     void printFreq(BST<std::string>& tree) {
     std::vector<std::pair<std::string, int> > freq = tree.getAll();
     std::sort(freq.begin(), freq.end(),
-              [](const auto& a, const auto& b) { return a.second > b.second; });
-    for (const auto& p : freq) {
-        std::cout << p.first << " " << p.second << std::endl;
+              [](const std::pair<std::string, int>& a,
+                 const std::pair<std::string, int>& b) { return a.second > b.second; });
+    for (size_t i = 0; i < freq.size(); ++i) {
+        std::cout << freq[i].first << " " << freq[i].second << std::endl;
     }
     std::ofstream out("result or freq.txt");
     if (!out) {
         std::cout << "Error Opening result or freq.txt" << std::endl;
         return;
     }
-    for (const auto& p : freq) {
-        out << p.first << " " << p.second << std::endl;
+    for (size_t i = 0; i < freq.size(); ++i) {
+        out << freq[i].first << " " << freq[i].second << std::endl;
     }
     out.close();
 }
