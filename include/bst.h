@@ -1,6 +1,7 @@
 // Copyright 2021 NNTU-CS
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
+
 #include <algorithm>
 #include <utility>
 #include <vector>
@@ -54,13 +55,12 @@ class BST {
         return 1 + std::max(depth(node->left), depth(node->right));
     }
     template<typename Func>
-    void forEach(Node* node, Func f) const {
-        if (node) {
-            forEach(node->left, f);
-            f(node->key, node->count);
-            forEach(node->right, f);
-        }
-    }
+void collect(Node* node, std::vector<std::pair<T, int>>& result) const {
+    if (!node) return;
+    collect(node->left, result);
+    result.push_back(std::make_pair(node->key, node->count));
+    collect(node->right, result);
+}
 
  public:
     BST() {
@@ -78,9 +78,10 @@ class BST {
       return search(root, key);
     }
     int depth() const { return depth(root); }
-    template<typename Func>
-    void forEach(Func f) const {
-      forEach(root, f);
+    std::vector<std::pair<T, int>> getAll() const {
+    std::vector<std::pair<T, int>> result;
+    collect(root, result);
+    return result;
     }
 };
 
