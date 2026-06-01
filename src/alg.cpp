@@ -2,9 +2,10 @@
 #include  "bst.h"
 #include  <iostream>
 #include  <fstream>
-#include  <locale>
+#include <string>
+#include <vector>
 #include  <cstdlib>
-#include <algorithm>
+
 
 void makeTree(BST<std::string>& tree, const char* filename) {
     std::ifstream file(filename);
