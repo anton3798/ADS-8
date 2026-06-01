@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <utility>
 #include <vector>
+#include <string>
 
 template <typename T>
 class BST {
@@ -83,4 +84,4 @@ class BST {
     }
 };
 
-#endif
+#endif // INCLUDE_BST_H_
