@@ -25,23 +25,23 @@ class BST {
             delete node;
         }
     }
-    Node* insert(Node* node, const T& key) {
+    Node* insertNode(Node* node, const T& key) {
         if (!node) {
             return new Node(key);
         }
         if (key < node->key) {
-            node->left = insert(node->left, key);
+            node->left = insertNode(node->left, key);
         } else if (key > node->key) {
-            node->right = insert(node->right, key);
+            node->right = insertNode(node->right, key);
         } else {
             node->count++;
         }
         return node;
     }
-    bool search(Node* node, const T& key) const {
+    bool searchNode(Node* node, const T& key) const {
         if (!node) return false;
-        if (key < node->key) return search(node->left, key);
-        if (key > node->key) return search(node->right, key);
+        if (key < node->key) return searchNode(node->left, key);
+        if (key > node->key) return searchNode(node->right, key);
         return true;
     }
     int depthNode(Node* node) const {
@@ -67,13 +67,13 @@ class BST {
     BST(const BST&) = delete;
     BST& operator=(const BST&) = delete;
     void insert(const T& key) {
-      root = insert(root, key);
+      root = insertNode(root, key);
     }
     bool search(const T& key) const {
-      return search(root, key);
+      return searchNode(root, key);
     }
     int depth() const {
-    return depth(root);
+    return depthNode(root);
     }
     std::vector<std::pair<T, int>> getAll() const {
     std::vector<std::pair<T, int>> result;
