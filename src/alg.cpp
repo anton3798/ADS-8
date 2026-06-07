@@ -12,13 +12,14 @@ void makeTree(BST<std::string>& tree, const char* filename) {
         std::cerr << "Ошибка открытия: " << filename << std::endl;
         return;
     }
-        std::locale loc("C");
     std::string word;
     char ch;
     while (file.get(ch)) {
-        unsigned char uch = static_cast<unsigned char>(ch);
-        if (std::isalpha(uch, loc)) {
-            word += std::tolower(uch, loc);
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
+            if (ch >= 'A' && ch <= 'Z') {
+                ch = ch + ('a' - 'A');
+            }
+            word += ch;
         } else {
             if (!word.empty()) {
                 tree.insert(word);
