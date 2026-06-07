@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
+#include <string>
 #include <algorithm>
 #include "bst.h"
 
@@ -14,8 +15,11 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     std::string word;
     char ch;
     while (file.get(ch)) {
-        if (std::isalpha(static_cast<unsigned char>(ch))) {
-            word += std::tolower(static_cast<unsigned char>(ch));
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
+            if (ch >= 'A' && ch <= 'Z') {
+                ch = ch + ('a' - 'A');
+            }
+            word += ch;
         } else {
             if (!word.empty()) {
                 tree.insert(word);
@@ -28,6 +32,7 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     }
     file.close();
 }
+
 void printFreq(BST<std::string>& tree) {
     auto entries = tree.getEntries();
     std::sort(entries.begin(), entries.end(),
@@ -41,7 +46,6 @@ void printFreq(BST<std::string>& tree) {
     }
     std::ofstream out("result/freq.txt");
     if (!out) {
-        std::cerr << "Ошибка создания result/freq.txt\n";
         return;
     }
     for (const auto& p : entries) {
