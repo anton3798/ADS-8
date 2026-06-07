@@ -4,6 +4,7 @@
 #include <cctype>
 #include <string>
 #include <algorithm>
+#include <vector>
 #include "bst.h"
 
 void makeTree(BST<std::string>& tree, const char* filename) {
