@@ -59,6 +59,8 @@ class BST {
         result.push_back({ node->key, node->count });
         traverseInOrder(node->right, result);
     }
+    BST(const BST&);
+    BST& operator=(const BST&);
 
  public:
     BST() : root(nullptr) {}
